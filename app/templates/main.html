@@ -14,14 +14,14 @@
     {% block meta %}
         <meta name="author" content="Shane"/>
         <meta name="title" content="Zero WoW"/>
-        <meta name="description" content="Zero WoW Gaming - A TBC World of Warcraft raiding guild from US Benediction."/>
+        <meta name="description" content="Zero WoW - A TBC World of Warcraft raiding guild on US Benediction."/>
 
         <meta property="og:author" content="Shane">
         <meta property="og:title" content="Zero WoW">
-        <meta property="og:description" content="Zero WoW Gaming - A TBC World of Warcraft raiding guild from US Benediction.">
+        <meta property="og:description" content="Zero WoW - A TBC World of Warcraft raiding guild on US Benediction.">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ request.META|get_scheme }}://{{ request.META.HTTP_HOST }}{% url 'home:index' %}">
-        <meta property="og:image" content="{{ request.META|get_scheme }}://{{ request.META.HTTP_HOST }}{% static 'images/logo128.webp' %}">
+        <meta property="og:image" content="{{ request.META|get_scheme }}://{{ request.META.HTTP_HOST }}{% static 'images/logo.png' %}">
     {% endblock %}
 
     <link rel="icon" href="{% static 'images/favicon.ico' %}">
