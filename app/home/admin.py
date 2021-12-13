@@ -8,6 +8,7 @@ admin.site.site_header = 'Zero Wow Administration'
 class GuildProfileAdmin(admin.ModelAdmin):
     list_display = ('main_char', 'main_class', 'main_role', 'show_in_roster', 'id',)
     list_filter = ('main_class', 'main_role', 'show_in_roster',)
+    readonly_fields = ('live_on_twitch',)
     search_fields = ('main_char', 'id',)
     ordering = ('main_char',)
 
