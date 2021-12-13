@@ -4,6 +4,19 @@
 {% load static %}
 {% load home_tags %}
 
+{% block meta %}
+    <meta name="author" content="Shane"/>
+    <meta name="title" content="Zero WoW Guild Application"/>
+    <meta name="description" content="Come apply to Zero WoW. A TBC World of Warcraft raiding guild on US Benediction."/>
+
+    <meta property="og:author" content="Shane">
+    <meta property="og:title" content="Zero WoW Guild Application">
+    <meta property="og:description" content="Come apply to Zero WoW. A TBC World of Warcraft raiding guild on US Benediction.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.META|get_scheme }}://{{ request.META.HTTP_HOST }}{% url 'home:index' %}">
+    <meta property="og:image" content="{{ request.META|get_scheme }}://{{ request.META.HTTP_HOST }}{% static 'images/logo.png' %}">
+{% endblock %}
+
 {% block head %}{% endblock %}
 
 {% block body %}
