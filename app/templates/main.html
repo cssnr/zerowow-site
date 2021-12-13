@@ -72,6 +72,9 @@
                                 {% if request.user.guild_member %}
                                     <li><a class="dropdown-item" href="{% url 'home:profile' %}">
                                         <i class="fas fa-tools mr-2"></i> Profile</a></li>
+                                {% else %}
+                                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#user-info-modal">
+                                        <i class="fas fa-user-circle mr-2"></i> Profile</a></li>
                                 {% endif %}
                                 {% if request.user.is_staff %}
                                     <li><hr class="dropdown-divider"></li>
