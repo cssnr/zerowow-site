@@ -5,14 +5,14 @@ from .models import CustomUser
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
-    list_display = ('username', 'first_name', 'last_name', 'is_staff',)
-    list_filter = ('is_staff',)
+    list_display = ('username', 'first_name', 'last_name', 'guild_member', 'guild_officer', 'is_staff',)
+    list_filter = ('guild_member', 'guild_officer', 'is_staff',)
     fieldsets = UserAdmin.fieldsets + (
-        ('OAuth', {'fields': ('id', 'discord_roles', 'guild_member', 'guild_officer',)}),
+        ('OAuth', {'fields': ('discord_roles', 'guild_member', 'guild_officer',)}),
     )
     readonly_fields = ('discord_roles',)
-    search_fields = ('username', 'id',)
-    ordering = ('username',)
+    search_fields = ('username',)
+    ordering = ('first_name',)
 
 
 admin.site.register(CustomUser, CustomUserAdmin)
