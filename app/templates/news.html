@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% block news_active %}active{% endblock %}
+{% block title %}News{% endblock %}
+{% load home_tags %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+    <div class="container mt-2">
+
+        <h1>Zero News</h1>
+
+        {% if request.user.guild_officer %}
+            <p>Officers can add/edit Zero WoW News from the
+                <a class="text-info" href="{% url 'admin:index' %}">Admin Panel</a>.</p>
+        {% endif %}
+
+        {% for news in guild_news %}
+            {% include 'include/news.html' with news=news %}
+            <br>
+        {% endfor %}
+
+    </div>
+{% endblock %}

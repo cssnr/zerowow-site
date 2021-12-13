@@ -1,0 +1,160 @@
+{% extends "main.html" %}
+{% block apply_active %}active{% endblock %}
+{% block title %}Apply to Guild{% endblock %}
+{% load static %}
+{% load home_tags %}
+
+{% block head %}{% endblock %}
+
+{% block body %}
+    <div class="container mt-2">
+
+        <h1>Apply to Zero</h1>
+
+        {% if request.user.guild_member %}
+            <div class="alert alert-info" role="alert">
+                It appears you are already in Zero WoW.
+                If you believe this is an error try logging out and back in with a different user.
+            </div>
+
+        {% elif request.session.application_submitted %}
+            <div class="alert alert-info" role="alert">
+                It appears you have already submitted an application.
+                If you believe this is an error try logging out and back in or clearing your cache for this site.
+            </div>
+
+        {% else %}
+            <h3>US - Benediction - Alliance</h3>
+            <p>Zero WoW is a TBC of Warcraft raiding guild on the US Benediction realm.
+                Only Alliance players from Benediction or transferring to Benediction should apply.
+                For more information please join our <i class="fab fa-discord"></i>
+                <a href="{% get_config 'DISCORD_INVITE' %}" class="text-info" target="_blank">Discord</a>.</p>
+
+            <form id="apply-form" name="apply-form" method="POST" action="{% url 'home:apply' %}">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="mb-3 col-12 col-md-6">
+                        <label for="char_name">Main Character Name (in game)</label>
+                        <input type="text" class="form-control" id="char_name" name="char_name" placeholder="Character Name">
+                        <div class="invalid-feedback" id="char_name-invalid"></div>
+                    </div>
+                    <div class="mb-3 col-12 col-md-6">
+                        <label for="char_role">Main Role</label>
+                        <select id="char_role" name="char_role" class="form-control custom-select">
+                            <option value="" selected>-- Select One --</option>
+                            <option value="DPS">DPS</option>
+                            <option value="Healer">Healer</option>
+                            <option value="Tank">Tank</option>
+                        </select>
+                        <div class="invalid-feedback" id="char_role-invalid"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-12 col-md-6">
+                        <label for="warcraft_logs">Warcraft Logs Link (from
+                            <a href="https://classic.warcraftlogs.com/" target="_blank">here</a>)</label>
+                        <input type="text" class="form-control" id="warcraft_logs" name="warcraft_logs" placeholder="Warcraft Logs URL">
+                        <div class="invalid-feedback" id="warcraft_logs-invalid"></div>
+                    </div>
+                    <div class="mb-3 col-12 col-md-6">
+                        <label for="speed_test">Network Test Link (from <a href="https://openspeedtest.com/" target="_blank">here</a>)</label>
+                        <input type="text" class="form-control" id="speed_test" name="speed_test" placeholder="Test Results URL">
+                        <div class="invalid-feedback" id="speed_test-invalid"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-12 col-md-6">
+                        <label for="spoken_langs">Spoken Languages</label>
+                        <input type="text" class="form-control" id="spoken_langs" name="spoken_langs" placeholder="List of Spoken Languages">
+                        <div class="invalid-feedback" id="spoken_langs-invalid"></div>
+                    </div>
+                    <div class="mb-3 col-12 col-md-6">
+                        <label for="native_lang">Native Language</label>
+                        <input type="text" class="form-control" id="native_lang" name="native_lang" placeholder="Native Spoken Language">
+                        <div class="invalid-feedback" id="native_lang-invalid"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p class="lead">Please select which raids you can attend:</p>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Attendance</th>
+                                <th scope="col">Raid</th>
+                                <th scope="col">Day</th>
+                                <th scope="col">Time (Server)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="raid_1" name="raid_1">
+                                        <label class="form-check-label" for="raid_1">Can Attend</label>
+                                        <div class="invalid-feedback" id="raid_1-invalid"></div>
+                                    </div>
+                                </th>
+                                <td>Raid 1 - Progression</td>
+                                <td>Wed. & Thurs.</td>
+                                <td>8:00 PM to 12:00 PM</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="raid_2" name="raid_2">
+                                        <label class="form-check-label" for="raid_2">Can Attend</label>
+                                        <div class="invalid-feedback" id="raid_2-invalid"></div>
+                                    </div>
+                                </th>
+                                <td>Raid 2 - Progression</td>
+                                <td>Saturday</td>
+                                <td>3:00 PM to 9:00 PM</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="raid_exp">Raiding and WoW Experience</label>
+                        <textarea class="form-control" id="raid_exp" name="raid_exp" rows="3"></textarea>
+                        <div class="invalid-feedback" id="raid_exp-invalid"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="why_join">Why do you want to join Zero WoW?</label>
+                        <textarea class="form-control" id="why_join" name="why_join" rows="3"></textarea>
+                        <div class="invalid-feedback" id="why_join-invalid"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="contact_info">Contact Information (how can we contact you if approved)</label>
+                        <input type="text" class="form-control" id="contact_info" name="contact_info" placeholder="Contact Information">
+                        <div class="invalid-feedback" id="contact_info-invalid"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col mb-3">
+                        <div class="g-recaptcha mb-2" data-sitekey="{% get_config 'GOOGLE_SITE_PUBLIC' %}"></div>
+                        <button type="submit" id="submit-app-btn" class="btn btn-primary">Submit Application</button>
+                    </div>
+                </div>
+
+            </form>
+
+            <div style="display:none;" id="apply-success" class="alert alert-success" role="alert">
+                Your application has been successfully submitted. We will reach out to you once we have made a decision.
+            </div>
+        {% endif %}
+
+    </div>
+{% endblock %}
+
+{% block tail %}
+    <script type="text/javascript" src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script type="text/javascript" src="{% static 'main/js/apply.js' %}"></script>
+{% endblock %}

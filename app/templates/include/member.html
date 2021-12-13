@@ -1,0 +1,19 @@
+<div class="card">
+    <h5 class="card-header">
+        {{ member.main_char }} - {{ member.main_class }} - {{ member.main_role }}
+        {% if member.live_on_twitch %}
+            <small class="text-danger ml-3"><i class="fas fa-play"></i> Live on Twitch</small>
+        {% endif %}
+    </h5>
+    <div class="card-body">
+        <p class="card-text">{{ member.user_description|linebreaksbr }}</p>
+        <a href="https://classic.warcraftlogs.com/character/us/benediction/{{ member.main_char|lower }}"
+           class="btn btn-primary" target="_blank">Warcraft Logs</a>
+        <a href="https://ironforge.pro/?player={{ member.main_char|title }}-Benediction"
+           class="btn btn-primary" target="_blank">IronForge Armory</a>
+        {% if member.twitch_username %}
+            <a href="https://www.twitch.tv/{{ member.twitch_username|lower }}"
+               class="btn btn-success" target="_blank">Twitch</a>
+        {% endif %}
+    </div>
+</div>
