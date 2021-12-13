@@ -5,6 +5,8 @@
     <div class="col-md-8">
         <h1>Zero WoW</h1>
 
+        <p class="lead">Hello {{ user.first_name }}. Thank you for being part of Zero WoW!</p>
+
         {% if not user_profile %}
             <div class="alert alert-warning" role="alert">
                 You have not yet added your profile! Please <a href="{% url 'home:profile' %}">click here</a>
@@ -12,8 +14,6 @@
             </div>
         {% endif %}
 
-        <p class="lead">Hello {% if user.first_name %}{{ user.first_name }}{% else %}{{ user.username }}{% endif %}.
-            Thank you for being part of Zero WoW!</p>
         <p>The website is still under construction. Currently you can
             <a class="" href="{% url 'home:profile' %}">add/update your profile</a> for the
             <a class="" href="{% url 'home:roster' %}">Guild Roster</a>
