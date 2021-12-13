@@ -33,7 +33,7 @@ services:
     build: ./app
     image: registry.hosted-domains.com/shane/zerowow-app:${VERSION}
     env_file: ${ENV_FILE}
-    command: "gunicorn tools.asgi:application -w 2 -b 0.0.0.0:9000 -k uvicorn.workers.UvicornWorker"
+    command: "gunicorn zerowow.asgi:application -w 2 -b 0.0.0.0:9000 -k uvicorn.workers.UvicornWorker"
     deploy:
       mode: global
     volumes:
@@ -46,7 +46,7 @@ services:
   worker:
     image: registry.hosted-domains.com/shane/zerowow-app:${VERSION}
     env_file: ${ENV_FILE}
-    command: "celery -A tools worker -l INFO -c 2"
+    command: "celery -A zerowow worker -l INFO -c 2"
     deploy:
       replicas: 1
     networks:
@@ -58,7 +58,7 @@ services:
   beat:
     image: registry.hosted-domains.com/shane/zerowow-app:${VERSION}
     env_file: ${ENV_FILE}
-    command: "celery -A tools beat -l INFO -S django"
+    command: "celery -A zerowow beat -l INFO -S django"
     deploy:
       replicas: 1
     networks:
