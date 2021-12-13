@@ -12,7 +12,7 @@
 
         {% if request.user.guild_officer %}
             <p>Officers can add/edit Zero WoW News from the
-                <a class="text-info" href="{% url 'admin:index' %}">Admin Panel</a>.</p>
+                <a class="text-warning" href="{% url 'admin:index' %}">Admin Panel</a>.</p>
         {% endif %}
 
         {% for news in guild_news %}

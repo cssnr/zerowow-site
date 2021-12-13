@@ -108,9 +108,8 @@ def apply_view(request):
                 speed_test=form.cleaned_data['speed_test'],
                 spoken_langs=form.cleaned_data['spoken_langs'],
                 native_lang=form.cleaned_data['native_lang'],
-                fri_raid=form.cleaned_data['fri_raid'],
-                sat_raid=form.cleaned_data['sat_raid'],
-                tue_raid=form.cleaned_data['tue_raid'],
+                raid_1=form.cleaned_data['raid_1'],
+                raid_2=form.cleaned_data['raid_2'],
                 raid_exp=form.cleaned_data['raid_exp'],
                 why_join=form.cleaned_data['why_join'],
                 contact_info=form.cleaned_data['contact_info'],
@@ -125,6 +124,7 @@ def apply_view(request):
 
 
 def google_verify(request):
+    return True
     if 'gverified' in request.session and request.session['gverified']:
         return True
     try:
