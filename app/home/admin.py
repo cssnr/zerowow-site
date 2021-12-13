@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import GuildProfile, GuildNews, GuildApplicants
 
+admin.site.site_header = 'Zero Wow Administration'
+
 
 @admin.register(GuildProfile)
 class GuildProfileAdmin(admin.ModelAdmin):
