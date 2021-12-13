@@ -48,7 +48,7 @@ pipeline {
             environment {
                 STACK_NAME = "dev-${SERVICE_NAME}"
                 NFS_DIRECTORY = "${STACK_NAME}"
-                TRAEFIK_HOST = "`dev.zerowow.gaming`"
+                TRAEFIK_HOST = "`dev.zerowow.games`"
                 ENV_FILE = "deploy-configs/services/${SERVICE_NAME}/dev.env"
             }
             steps {
@@ -75,7 +75,7 @@ pipeline {
             environment {
                 STACK_NAME = "prod-${SERVICE_NAME}"
                 NFS_DIRECTORY = "${STACK_NAME}"
-                TRAEFIK_HOST = "`zerowow.gaming`"
+                TRAEFIK_HOST = "`zerowow.games`"
                 ENV_FILE = "deploy-configs/services/${SERVICE_NAME}/prod.env"
             }
             steps {
