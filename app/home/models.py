@@ -82,7 +82,8 @@ class GuildApplicants(models.Model):
 
 
 class TwitchToken(models.Model):
-    access_token = models.CharField(primary_key=True, blank=True, max_length=32)
+    id = models.AutoField(primary_key=True)
+    access_token = models.CharField(blank=True, max_length=32)
     expiration_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

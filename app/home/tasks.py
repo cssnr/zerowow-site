@@ -72,7 +72,7 @@ def get_twitch_token():
 
     token_info = r.json()
     logger.debug(token_info)
-    exp_date = now() + datetime.timedelta(0, token_info['expires_in'] - 300)
+    exp_date = now() + datetime.timedelta(seconds=token_info['expires_in'] - 300)
     token.access_token = token_info['access_token']
     token.expiration_date = exp_date
     token.save()
