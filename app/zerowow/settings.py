@@ -56,6 +56,9 @@ DISCORD_OFFICER_ROLE = os.environ['DISCORD_OFFICER_ROLE']
 DISCORD_MEMBER_ROLE = os.environ['DISCORD_MEMBER_ROLE']
 DISCORD_CHANNEL_ID = os.environ['DISCORD_CHANNEL_ID']
 
+TWITCH_CLIENT_ID = os.environ['TWITCH_CLIENT_ID']
+TWITCH_CLIENT_SECRET = os.environ['TWITCH_CLIENT_SECRET']
+
 CELERY_RESULT_BACKEND = os.environ['CELERY_RESULT_BACKEND']
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
@@ -66,10 +69,10 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'home.tasks.clear_sessions',
         'schedule': crontab(minute=0, hour=0),
     },
-    # 'every-five-minutes': {
-    #     'task': 'check_twitch_live',
-    #     'schedule': crontab('*/5')
-    # },
+    'every-five-minutes': {
+        'task': 'check_twitch_live',
+        'schedule': crontab('*/2')
+    },
 }
 
 if 'SENTRY_URL' in os.environ and os.environ['SENTRY_URL']:

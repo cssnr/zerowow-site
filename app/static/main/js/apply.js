@@ -1,4 +1,3 @@
-// Document Dot Ready
 $(document).ready(function() {
 
     $(".form-control").focus(function() {
@@ -51,5 +50,4 @@ $(document).ready(function() {
         return false;
     });
 
-// Document Dot Ready
 } );
