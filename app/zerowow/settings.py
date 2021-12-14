@@ -71,7 +71,7 @@ CELERY_BEAT_SCHEDULE = {
     },
     'every-five-minutes': {
         'task': 'check_twitch_live',
-        'schedule': crontab('*/5')
+        'schedule': crontab('*/2')
     },
 }
 
