@@ -53,7 +53,7 @@ def check_twitch_live():
 
 
 def get_twitch_token():
-    token, created = TwitchToken.objects.get_or_create()
+    token, _ = TwitchToken.objects.get_or_create()
     if token and token.access_token and token.expiration_date:
         if token.expiration_date > now():
             return token.access_token
