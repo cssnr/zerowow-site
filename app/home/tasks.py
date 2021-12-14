@@ -4,7 +4,7 @@ import httpx
 from celery import shared_task
 from django.conf import settings
 from django.utils.timezone import now
-from .models import TwitchToken, GuildProfile, GuildApplicants
+from home.models import TwitchToken, GuildProfile, GuildApplicants
 
 logger = logging.getLogger('celery')
 
@@ -51,11 +51,10 @@ def check_twitch_live():
 
 
 def get_twitch_token():
-    twitch_token = TwitchToken.objects.get_or_create(id=1)[0]
-    if twitch_token:
-        if twitch_token.access_token and twitch_token.access_token:
-            if twitch_token.expiration_date > now():
-                return twitch_token.access_token
+    token, created = TwitchToken.objects.get_or_create()
+    if token and token.access_token and token.expiration_date:
+        if token.expiration_date > now():
+            return token.access_token
 
     url = 'https://id.twitch.tv/oauth2/token'
     data = {
@@ -64,16 +63,18 @@ def get_twitch_token():
         'grant_type': 'client_credentials',
     }
     r = httpx.post(url, data=data)
-    logger.info(r.status_code)
+    logger.debug(r.status_code)
     if not r.is_success:
+        logger.info(r.content)
         r.raise_for_status()
 
     token_info = r.json()
+    logger.debug(token_info)
     exp_date = now() + datetime.timedelta(0, token_info['expires_in'] - 300)
-    twitch_token.access_token = token_info['access_token']
-    twitch_token.expiration_date = exp_date
-    twitch_token.save()
-    return twitch_token.access_token
+    token.access_token = token_info['access_token']
+    token.expiration_date = exp_date
+    token.save()
+    return token.access_token
 
 
 def send_discord_message(channel_id, message):
