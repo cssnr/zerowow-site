@@ -26,8 +26,8 @@ def check_twitch_live():
     access_token = get_twitch_token()
     logger.debug(access_token)
 
-    user_profile = GuildProfile.objects.all()
-    twitch_usernames = [u.twitch_username for u in user_profile if u.twitch_username]
+    profiles = GuildProfile.objects.all()
+    twitch_usernames = [u.twitch_username for u in profiles if u.twitch_username]
 
     url = 'https://api.twitch.tv/helix/streams'
     params = {'user_login': twitch_usernames}
@@ -41,13 +41,15 @@ def check_twitch_live():
 
     data = r.json()['data']
     live_users = [u['user_name'].lower() for u in data]
-    for u in user_profile:
-        if u.twitch_username.lower() in live_users:
-            u.live_on_twitch = True
+    for user in profiles:
+        if not user.twitch_username:
+            continue
+        if user.twitch_username.lower() in live_users:
+            user.live_on_twitch = True
         else:
-            u.live_on_twitch = False
-        u.save()
-    return 'Finished'
+            user.live_on_twitch = False
+        user.save()
+    return f'Processed {len(profiles)} user profiles.'
 
 
 def get_twitch_token():
@@ -87,6 +89,8 @@ def send_discord_message(channel_id, message):
     }
     data = {'content': message}
     r = httpx.post(url, headers=headers, data=data, timeout=10)
+    logger.debug(r.status_code)
     if not r.is_success:
+        logger.info(r.content)
         r.raise_for_status()
     return r
