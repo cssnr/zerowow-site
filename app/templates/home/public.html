@@ -6,12 +6,12 @@
         <h1>Zero WoW</h1>
 
         {% if user.is_authenticated %}
-            <p class="lead">Hello {{ user.first_name }} and welcome to Zero WoW.</p>
+            <p class="lead">Hello {{ user.first_name }} and welcome to &lt;Zero&gt; WoW.</p>
         {% else %}
-            <p class="lead">Hello and welcome to Zero WoW.</p>
+            <p class="lead">Hello and welcome to &lt;Zero&gt; WoW.</p>
         {% endif %}
 
-        <p>Zero WoW is a TBC World of Warcraft Alliance raiding guild on US-Benediction.</p>
+        <p>&lt;Zero&gt; is a TBC World of Warcraft Alliance raiding guild on US-Benediction.</p>
 
         <p>Website development is still in progress. Currently you can read
             <a class="" href="{% url 'home:news' %}">recent news</a>, view our

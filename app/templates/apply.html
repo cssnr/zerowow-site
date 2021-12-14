@@ -6,12 +6,12 @@
 
 {% block meta %}
     <meta name="author" content="Shane"/>
-    <meta name="title" content="Zero WoW Guild Application"/>
-    <meta name="description" content="Come apply to Zero WoW. A TBC World of Warcraft raiding guild on US Benediction."/>
+    <meta name="title" content="Zero Guild Application"/>
+    <meta name="description" content="Apply to Zero WoW Guild Today. A TBC World of Warcraft raiding guild on US Benediction."/>
 
     <meta property="og:author" content="Shane">
-    <meta property="og:title" content="Zero WoW Guild Application">
-    <meta property="og:description" content="Come apply to Zero WoW. A TBC World of Warcraft raiding guild on US Benediction.">
+    <meta property="og:title" content="Zero Guild Application">
+    <meta property="og:description" content="Apply to Zero WoW Guild Today. A TBC World of Warcraft raiding guild on US Benediction.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.META|get_scheme }}://{{ request.META.HTTP_HOST }}{% url 'home:index' %}">
     <meta property="og:image" content="{{ request.META|get_scheme }}://{{ request.META.HTTP_HOST }}{% static 'images/logo.png' %}">
@@ -22,11 +22,11 @@
 {% block body %}
     <div class="container mt-2">
 
-        <h1>Apply to Zero</h1>
+        <h1>Apply to &lt;Zero&gt;</h1>
 
         {% if request.user.guild_member %}
             <div class="alert alert-info" role="alert">
-                It appears you are already in Zero WoW.
+                It appears you are already in &lt;Zero&gt;.
                 If you believe this is an error try logging out and back in with a different user.
             </div>
 
@@ -38,7 +38,7 @@
 
         {% else %}
             <h3>US - Benediction - Alliance</h3>
-            <p>Zero WoW is a TBC of Warcraft raiding guild on the US Benediction realm.
+            <p>&lt;Zero&gt; is a TBC of Warcraft raiding guild on the US Benediction realm.
                 Only Alliance players from Benediction or transferring to Benediction should apply.
                 For more information please join our <i class="fab fa-discord"></i>
                 <a href="{% get_config 'DISCORD_INVITE' %}" class="text-info" target="_blank">Discord</a>.</p>
@@ -152,7 +152,10 @@
 
                 <div class="row">
                     <div class="col mb-3">
-                        <div class="g-recaptcha mb-2" data-sitekey="{% get_config 'GOOGLE_SITE_PUBLIC' %}"></div>
+                        <div class="g-recaptcha mb-2"
+                             data-sitekey="{% get_config 'GOOGLE_SITE_PUBLIC' %}"
+                             data-theme="dark"
+                        ></div>
                         <button type="submit" id="submit-app-btn" class="btn btn-success">Submit Application</button>
                     </div>
                 </div>
@@ -161,6 +164,9 @@
 
             <div style="display:none;" id="apply-success" class="alert alert-success" role="alert">
                 Your application has been successfully submitted. We will reach out to you once we have made a decision.
+                For more information please join our <i class="fab fa-discord"></i>
+                <a class="text-info" href="{% get_config "DISCORD_INVITE" %}" target="_blank">
+                    Discord</a>.
             </div>
         {% endif %}
 

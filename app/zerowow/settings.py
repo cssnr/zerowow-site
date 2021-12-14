@@ -66,10 +66,10 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'home.tasks.clear_sessions',
         'schedule': crontab(minute=0, hour=0),
     },
-    # 'every-five-minutes': {
-    #     'task': 'check_twitch_live',
-    #     'schedule': crontab('*/5')
-    # },
+    'every-five-minutes': {
+        'task': 'check_twitch_live',
+        'schedule': crontab('*/5')
+    },
 }
 
 if 'SENTRY_URL' in os.environ and os.environ['SENTRY_URL']:
