@@ -121,7 +121,7 @@ def get_user_profile(data):
     logger.debug('content: %s', r.content)
     user_guild = r.json() if r.is_success else None
 
-    data = {
+    return {
         'id': p['id'],
         'username': p['username'],
         'discriminator': p['discriminator'],
