@@ -44,4 +44,4 @@ def avatar_url(avatar_hash, username):
     if avatar_hash:
         return f'https://cdn.discordapp.com/avatars/{ username }/{ avatar_hash }.png'
     else:
-        return static('images/assets/default-user.png')
+        return static('images/assets/default.png')
