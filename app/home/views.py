@@ -124,7 +124,6 @@ def apply_view(request):
 
 
 def google_verify(request):
-    return True
     if 'gverified' in request.session and request.session['gverified']:
         return True
     try:
