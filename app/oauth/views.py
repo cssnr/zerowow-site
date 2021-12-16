@@ -119,19 +119,19 @@ def get_user_profile(data):
     r = httpx.get(url, headers=headers, timeout=10)
     logger.debug('status_code: %s', r.status_code)
     logger.debug('content: %s', r.content)
-    user_guild = r.json()
+    guild = r.json() if r.is_success else None
 
     return {
         'id': p['id'],
         'username': p['username'],
         'discriminator': p['discriminator'],
         'avatar': p['avatar'],
-        'guild_member': settings.DISCORD_MEMBER_ROLE in user_guild['roles'],
-        'guild_officer': settings.DISCORD_OFFICER_ROLE in user_guild['roles'],
-        'discord_roles': user_guild['roles'],
         'access_token': data['access_token'],
         'refresh_token': data['refresh_token'],
         'expires_in': datetime.now() + timedelta(0, data['expires_in']),
+        'guild_member': settings.DISCORD_MEMBER_ROLE in guild['roles'] if guild else False,
+        'guild_officer': settings.DISCORD_OFFICER_ROLE in guild['roles'] if guild else False,
+        'discord_roles': guild['roles'] if guild else [],
     }
 
 
