@@ -28,6 +28,8 @@ def check_twitch_live():
 
     profiles = GuildProfile.objects.all()
     twitch_usernames = [u.twitch_username for u in profiles if u.twitch_username]
+    if not twitch_usernames:
+        return 'No Twitch usernames to process...'
 
     url = 'https://api.twitch.tv/helix/streams'
     params = {'user_login': twitch_usernames}
@@ -49,7 +51,7 @@ def check_twitch_live():
         else:
             user.live_on_twitch = False
         user.save()
-    return f'Processed {len(profiles)} user profiles.'
+    return f'Processed {len(twitch_usernames)} twitch user profiles.'
 
 
 def get_twitch_token():

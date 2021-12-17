@@ -139,16 +139,18 @@ def update_profile(user, profile):
     """
     Update Django user profile with provided data
     """
-    member = profile['guild_member'] or profile['guild_officer']
     try:
-        officers = Group.objects.get(name='Officers')
-        logger.debug('guild_officer: %s', profile['guild_officer'])
+        officers, _ = Group.objects.get_or_create(name='Officers')
         if profile['guild_officer']:
+            logger.debug('Adding user to officers group: %s', user)
             officers.user_set.add(user)
         else:
+            logger.debug('Removing user from officers group: %s', user)
             officers.user_set.remove(user)
     except Exception as error:
         logger.exception(error)
+
+    member = profile['guild_member'] or profile['guild_officer']
 
     user.first_name = profile['username']
     user.last_name = profile['discriminator']
