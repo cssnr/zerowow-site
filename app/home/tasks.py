@@ -3,10 +3,16 @@ import logging
 import httpx
 from celery import shared_task
 from django.conf import settings
+from django.core import management
 from django.utils.timezone import now
 from home.models import TwitchToken, GuildProfile, GuildApplicants
 
 logger = logging.getLogger('celery')
+
+
+@shared_task()
+def clear_sessions():
+    return management.call_command('clearsessions')
 
 
 @shared_task(name='notify_guild_app')
