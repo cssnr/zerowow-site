@@ -76,7 +76,7 @@ pipeline {
                 STACK_NAME = "prod-${SERVICE_NAME}"
                 NFS_DIRECTORY = "${STACK_NAME}"
                 TRAEFIK_HOST = "`zerowow.games`"
-                ENV_FILE = "deploy-configs/services/${SERVICE_NAME}/prod.env"
+                ENV_FILE = "service-configs/services/${SERVICE_NAME}/prod.env"
             }
             steps {
                 echo "\n--- Starting Prod Deploy ---\n" +
