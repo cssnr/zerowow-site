@@ -4,14 +4,14 @@
 
 pipeline {
     agent {
-        label 'manager'
+        label 'jenkins-slave-docker'
     }
     options {
         buildDiscarder(logRotator(numToKeepStr:'5'))
         timeout(time: 1, unit: 'HOURS')
     }
     environment {
-        DISCORD_ID = "smashed-alerts"
+        DISCORD_ID = "discord-hook-smashed"
         COMPOSE_FILE = "docker-compose-swarm.yml"
 
         BUILD_CAUSE = getBuildCause()
@@ -49,7 +49,7 @@ pipeline {
                 STACK_NAME = "dev-${SERVICE_NAME}"
                 NFS_DIRECTORY = "${STACK_NAME}"
                 TRAEFIK_HOST = "`dev.zerowow.games`"
-                ENV_FILE = "deploy-configs/services/${SERVICE_NAME}/dev.env"
+                ENV_FILE = "service-configs/services/${SERVICE_NAME}/dev.env"
             }
             steps {
                 echo "\n--- Starting Dev Deploy ---\n" +
