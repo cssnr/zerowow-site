@@ -49,7 +49,7 @@ pipeline {
                 STACK_NAME = "dev-${SERVICE_NAME}"
                 NFS_DIRECTORY = "${STACK_NAME}"
                 TRAEFIK_HOST = "`dev.zerowow.games`"
-                ENV_FILE = "deploy-configs/services/${SERVICE_NAME}/dev.env"
+                ENV_FILE = "service-configs/services/${SERVICE_NAME}/dev.env"
             }
             steps {
                 echo "\n--- Starting Dev Deploy ---\n" +
